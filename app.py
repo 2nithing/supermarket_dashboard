@@ -22,3 +22,11 @@ cont1 = col1.container(border=True)
 cont1.metric('Profit',df['gross_income'].sum())
 cont2 = col2.container(border=True)
 cont2.metric('Total Income',df['costs'].sum())
+
+df1 = df[pd.to_datetime(df['Order_date']).dt.month==3]
+
+with st.expander("Show Data"):
+    st.write(df1)
+result = df1.groupby(pd.to_datetime(df['Order_date']).dt.day)['gross_income'].sum().reset_index()
+st.write(result)
+st.line_chart(result,x='Order_date',y='gross_income')
